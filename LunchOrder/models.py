@@ -24,4 +24,4 @@ class Ingredient(models.Model):
 ('CO', 'Cookies'),
 )
     name = models.CharField(max_length = 20)  
-    category = models.ChoiceField(choices=	
+    category = models.ChoiceField(choices=CATEGORY_CHOICES)	
