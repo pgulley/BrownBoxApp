@@ -25,5 +25,16 @@ class Ingredient(models.Model):
 class Meal(models.Model):
     ingredients = models.ManyToManyField(Ingredient)
 class Order(models.Model):
+    STYLE_CHOICES =( 
+('R', 'Roll'),
+('W', 'Wrap'),
+('S', 'Salad'),
+)
+    DAY_CHOICES =( 
+('Tue', 'Tuesday'),
+('Thurs', 'Thursday'),
     user = models.ForeignKey(User)
     meal = models.ForeignKey(Meal)
+    style = models.CharField(max_length=1,choices=STYLE_CHOICES)
+    pickup = models.DateTimeField()
+     
