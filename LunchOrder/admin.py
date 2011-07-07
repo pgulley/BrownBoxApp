@@ -1,5 +1,5 @@
-from LunchOrder.models import Ingredients
+from LunchOrder.models import Ingredient
 from django.contrib import admin
 
-admin.site.register(Ingredients)
+admin.site.register(Ingredient)
 
