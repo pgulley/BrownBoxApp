@@ -1,0 +1,22 @@
+/* Colors are just reference for div separation*/
+h1{
+text-align:center;
+
+
+}
+
+div.BasicData{
+color:red;
+width:500px;
+padding:10px;
+border:5px solid gray;
+margin:0px;
+}
+
+div.Info{
+color:blue;
+
+}
+
+
+
