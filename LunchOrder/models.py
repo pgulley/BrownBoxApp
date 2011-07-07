@@ -14,5 +14,14 @@ class Meal(models.Model):
     ingredients = models.ManyToManyField(Ingredient)
 
 class Ingredient(models.Model):
+    CATEGORY_CHOICES =( 
+('M', 'Main'),
+('V', 'Veggie'),
+('C', 'Condiments'),
+('WS', 'Weekly Special'),
+('CH', 'Cheeses'),
+('D', 'Dressings'),
+('CO', 'Cookies'),
+)
     name = models.CharField(max_length = 20)  
-	
+    category = models.ChoiceField(choices=	
