@@ -7,9 +7,7 @@ class User(models.Model):
     department = models.CharField(max_length = 20)
     room = models.CharField(max_length = 4) 
 
-
-class Ingredient(models.Model):
-    CATEGORY_CHOICES =( 
+CATEGORY_CHOICES =( 
 ('M', 'Main'),
 ('V', 'Veggie'),
 ('C', 'Condiments'),
@@ -18,6 +16,7 @@ class Ingredient(models.Model):
 ('D', 'Dressings'),
 ('CO', 'Cookies'),
 )
+class Ingredient(models.Model):
     name = models.CharField(max_length = 20)  
     category = models.CharField(choices=CATEGORY_CHOICES, max_length = 2)
     def __unicode__(self): 
@@ -33,6 +32,7 @@ class Order(models.Model):
     DAY_CHOICES =( 
 ('Tue', 'Tuesday'),
 ('Thurs', 'Thursday'),
+)
     user = models.ForeignKey(User)
     meal = models.ForeignKey(Meal)
     style = models.CharField(max_length=1,choices=STYLE_CHOICES)

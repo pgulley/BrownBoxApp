@@ -7,7 +7,7 @@ from django.contrib import admin
 admin.autodiscover()
 urlpatterns = patterns('',
     # Examples:
-    # url(r'^$', 'BrownBoxApp.views.home', name='home'),
+     url(r'^order$', 'LunchOrder.views.Order'),
     # url(r'^BrownBoxApp/', include('BrownBoxApp.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:

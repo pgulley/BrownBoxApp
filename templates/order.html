@@ -1,12 +1,12 @@
 <html5>
 <head>
 <title> Order Form</title>
-<LINK REL=StyleSheet HREF="style.css" TYPE="text/css">
+<LINK REL=StyleSheet HREF="/static/style.css" TYPE="text/css">
 </head>
 <body>
 <div> <h1> Brown Box Order Form </h1> </div>
 
-<div class = "OrderForm">
+<div class="OrderForm">
 <div class= "FormHead">
 Name: Department: Room Number [All this is just filled in from the ID info] </br> </br>
 Pickup Time: <select> <option>Tuesday</option><option>Thursday</option></select><select><option>1</option><option>2</option><option>etc</option> </select>:<select><option>00</option><option>15</option><option>30</option><option>45</option></select> </br>
@@ -17,39 +17,26 @@ Type of Meal <select> <option>Roll</option> <option> Wrap </option> <option>Sala
 Create your own sandwich, wrap, or salad by checking any of the ingredients. </br>
 Wraps and Sandwiches come with chips and a cookie, salads come with a cookie only.
 </div>
+{% if categories %}
+{% for cat in categories %}
 <div class="Category">
-<div class="CategoryName"> Main </div> 
-<input class="Choice"type="checkbox">Ham</input>
-<input class="Choice"type="checkbox"> Turkey</input>
-<input class="Choice"type="checkbox">Meat</input>
-<input class="Choice"type="checkbox"> Hummus</input>
-<input class="Choice"type="checkbox">Veggies</input>
-<input class="Choice"type="checkbox"> Roast Beef</input>
+<div class="CategoryName"> {{cat.0}} </div> 
+{% for ingr in cat.1 %}
+<input class="Choice" name={{ ingr.name }} type="checkbox">{{ ingr.name }}</input>
+{% endfor %}
 </div>
-<div class="Category">
-<div class="CategoryName"> Cheese </div>
-<input class= "Choice" type="checkbox">Cheese1</input> 
-<input class= "Choice" type="checkbox">Cheese2</input> 
-<input class="Choice"type="checkbox">Thing3</input>
-<input class="Choice"type="checkbox"> Entry4</input>
-<input class="Choice"type="checkbox">Humorous Standin 4</input>
-</div>
-<div class="Category">
-<div class="CategoryName"> Condoments </div>
-<input class= "Choice" type="checkbox">Ranch</input> 
-<input class= "Choice" type="checkbox">Mustard</input> 
-<input class="Choice"type="checkbox">Mayo</input>
-<input class="Choice"type="checkbox">Ketchup</input>
-<input class="Choice"type="checkbox">Honey-Mustard</input>
-</div>
-</hr>
+{% endfor %}
+{% else %}
+ something is really wrong. contact the admin? </p>
+{% endif %}
+<hr />
 <div class="Category">
 <div class="CategoryName">Specials</div>
-<input class= "Choice" type="checkbox">Turkey</input> 
-<input class= "Choice" type="checkbox">Bacon</input> 
-<input class="Choice"type="checkbox">Ham</input>
-<input class="Choice"type="checkbox">Lettuce</input>
-<input class="Choice"type="checkbox">Tomato</input>
+<input class="Choice" type="checkbox">Turkey</input> 
+<input class="Choice" type="checkbox">Bacon</input> 
+<input class="Choice" type="checkbox">Ham</input>
+<input class="Choice" type="checkbox">Lettuce</input>
+<input class="Choice" type="checkbox">Tomato</input>
 </div>
 <div class="FormFoot">
 <input type="submit" value="Submit" />
