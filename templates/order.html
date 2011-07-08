@@ -5,11 +5,27 @@
 </head>
 <body>
 <div> <h1> Brown Box Order Form </h1> </div>
-
+<form name="NewOrder" action="/order/submit/" method="post">
+{% csrf_token %}
 <div class="OrderForm">
 <div class= "FormHead">
 Name: Department: Room Number [All this is just filled in from the ID info] </br> </br>
-Pickup Time: <select> <option>Tuesday</option><option>Thursday</option></select><select><option>1</option><option>2</option><option>etc</option> </select>:<select><option>00</option><option>15</option><option>30</option><option>45</option></select> </br>
+Pickup Time:
+<select name="DOW">
+<option value='TUES'>Tuesday</option>
+<option value='THUR'>Thursday</option>
+</select>
+<select name="hour">
+<option value='1'>1</option>
+<option value='2'>2</option>
+<option value='3'>etc</option>
+</select>:
+<select name='minute'>
+<option value='00'>00</option>
+<option value='15'>15</option>
+<option value='30'>30</option>
+<option value='45'>45</option>
+</select> </br>
 Type of Meal <select> <option>Roll</option> <option> Wrap </option> <option>Salad <option></select> </br>
 
 </div>
@@ -42,5 +58,6 @@ Wraps and Sandwiches come with chips and a cookie, salads come with a cookie onl
 <input type="submit" value="Submit" />
 </div>
 </div>
+</form>
 </body>
 </html5>  
