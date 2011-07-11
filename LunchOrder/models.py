@@ -36,5 +36,6 @@ class Order(models.Model):
     user = models.ForeignKey(User)
     meal = models.ForeignKey(Meal)
     style = models.CharField(max_length=1,choices=STYLE_CHOICES)
-    pickup = models.DateTimeField()
-     
+    submitted = models.DateTimeField()
+    pickup = models.CharField(max_length=10)
+    confirmed = models.BooleanField()

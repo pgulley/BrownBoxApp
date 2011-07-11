@@ -9,6 +9,7 @@ urlpatterns = patterns('',
     # Examples:
      url(r'^order$', 'LunchOrder.views.OrderPage'),
      url(r'^order/submit/$','LunchOrder.views.SubmitOrder'),	    
+     url(r'^order/confirm/$','LunchOrder.views.Confirm'),
     # url(r'^BrownBoxApp/', include('BrownBoxApp.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
