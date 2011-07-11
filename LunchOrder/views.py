@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.template import Context, loader, RequestContext
 
-def Order(request):
+def OrderPage(request):
     ingredientlist = Ingredient.objects.all()
     categories = []
     for categoryref in CATEGORY_CHOICES:
@@ -16,7 +16,15 @@ def Order(request):
     return render_to_response("order.html", {"categories": categories},context_instance=RequestContext(request))
 
 def SubmitOrder(request):
-    Data = request.POST
-    #Go through the post data, get rid of the csrf stuff, put the time and type info in one var
-    #put the ingredients in another, organised by category. 
-    return render_to_response("submit.html",{"data": Data}, context_instance=RequestContext(request))
+    newmeal = Meal()
+    newmeal.save()
+    for ingr in Ingredient.objects.all():
+        try:
+            added = request.POST[ingr.name]
+        except KeyError:
+            added = False
+        if added:
+            newmeal.ingredients.add(ingr)
+    mealstyle = request.POST["style"]
+    neworder = Order(style=mealstyle) 
+    return render_to_response("submit.html", context_instance=RequestContext(request))

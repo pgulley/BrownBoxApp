@@ -7,7 +7,7 @@ from django.contrib import admin
 admin.autodiscover()
 urlpatterns = patterns('',
     # Examples:
-     url(r'^order$', 'LunchOrder.views.Order'),
+     url(r'^order$', 'LunchOrder.views.OrderPage'),
      url(r'^order/submit/$','LunchOrder.views.SubmitOrder'),	    
     # url(r'^BrownBoxApp/', include('BrownBoxApp.foo.urls')),
 

@@ -22,7 +22,7 @@ class Ingredient(models.Model):
     def __unicode__(self): 
         return "{0} : {1}".format(self.category,self.name)
 class Meal(models.Model):
-    ingredients = models.ManyToManyField(Ingredient)
+    ingredients = models.ManyToManyField("Ingredient")
 class Order(models.Model):
     STYLE_CHOICES =( 
 ('R', 'Roll'),
