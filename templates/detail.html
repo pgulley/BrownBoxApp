@@ -1,0 +1,26 @@
+<html5>
+<head>
+<title> Order {{ order.id }} </title>
+</head>
+<body> 
+Order Details </br>
+{{ order.pickup }},{{ order.style }} </br>
+by {{ order.user.username }}, {{ order.user.get_profile.department }}, {{ order.user.get_profile.room }}  </br>
+{% for cat in choices %}
+{{ cat.0 }}
+{% for ingr in cat.1 %}
+{{ ingr }}
+{% endfor %}.
+{% endfor %}</br>
+<form name='fill' action='fill' method='post'> 
+{% csrf_token %}
+{% if user.get_profile.iskitchenstaff %}
+<input type=submit value= 'Submit' style:'display:inline' >
+<a href='/kitchenindex'>Go Back</a>
+{% else %}
+<a href='/view'>Go Back</a>
+{% endif %}
+</form>
+</body></html5>
+
+

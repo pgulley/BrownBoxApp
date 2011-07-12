@@ -1,0 +1,31 @@
+<html5>
+<head>
+<title> Index </title>
+</head>
+<body>
+This is a home page!
+</br>
+{% if user.is_authenticated %}  
+</br>
+{{ user.username }} </br>
+<a href='/order'>Order a Lunch! </a></br>
+<a href='/view'>View all orders</a></br>
+{% if user.get_profile.iskitchenstaff %}
+<a href='/kitchen'>Kitchen Index</a> </br>
+{% endif %}
+<a href='/logout'>Logout</a>
+{% else %}
+You aren't logged in! </br>
+Please do so, or <a href='/newuser'> create an account</a>
+<form name='login' action='/login' method='post'> 
+{% csrf_token %}
+<input type=text name='username' value="username"> </br>
+<input type=text name='password' value="password"> </br>
+<input type=submit value='Submit'></br>
+{% if loginerror %}
+</br>  That Login info is Incorrect
+{% endif %} 
+{% endif %}
+</form> 
+</body>
+</html5>

@@ -1,0 +1,16 @@
+<html5>
+<head>
+<title>New User</title>
+</head>
+<body>
+Creating a new User account
+<form name='NewUser' action='/createuser' method='post'>
+{% csrf_token %}
+<input type=text name='username' value='username'> </br>
+<input type=text name='password' value='password'> </br>
+<input type=text name='email' value='email address'></br>
+<input type=text name='department' value='department'> <input type=text name='room' value='Room Number'>
+<input type=submit value='Submit'>
+You will be redirected back to the index, where you will have to then log-in. 
+</body>
+</html5>

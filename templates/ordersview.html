@@ -1,0 +1,22 @@
+<html5>
+<head>
+<title> Viewing Orders </title>
+</head>
+<body>
+Unfilled Orders: </br>
+{% if Orders %}
+{% for Order in Orders %}
+<a href='/{{ Order.id }}'>{{ Order }}</a> </br>
+{% endfor %}
+{% else %}
+There are no orders to be fufilled </br>
+{% endif %}
+Past Orders: </br>
+{% if FilledOrders %}
+{% for Order in FilledOrders %}
+<a href='/{{ Order.id }}'>{{ Order }}</a> </br>
+{% endfor %}
+{% endif %}
+<a href='/index'>Go Home </a>
+</body>
+</html5>

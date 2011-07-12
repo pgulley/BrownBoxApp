@@ -10,9 +10,9 @@
 <div class="OrderForm">
 <div class= "FormHead">
 {% if returned %}
-You're here because you weren't ready to submit your order. </br>
+  <strong> You're here because you weren't ready to submit your order.</strong> </br>
 {% endif %}
-Name: Department: Room Number [All this is just filled in from the ID info] </br> </br>
+Name: {{ user.username }} Department:{{ user.get_profile.department }} Room Number: {{ user.get_profile.room }} </br>
 Pickup Time:
 <select name="DOW">
 <option value='TUES'>Tuesday</option>
@@ -51,7 +51,7 @@ Wraps and Sandwiches come with chips and a cookie, salads come with a cookie onl
 <div class="Category">
 <div class="CategoryName"> {{cat.0}} </div> 
 {% for ingr in cat.1 %}
-<input class="Choice" name={{ ingr.name }} type="checkbox">{{ ingr.name }}</input>
+<input class="Choice" name="{{ ingr.id }}" type="checkbox">{{ ingr.name }}</input>
 {% endfor %}
 </div>
 {% endfor %}
@@ -59,16 +59,8 @@ Wraps and Sandwiches come with chips and a cookie, salads come with a cookie onl
  something is really wrong. contact the admin? </p>
 {% endif %}
 <hr />
-<div class="Category">
-<div class="CategoryName">Specials</div>
-<input class="Choice" type="checkbox">Turkey</input> 
-<input class="Choice" type="checkbox">Bacon</input> 
-<input class="Choice" type="checkbox">Ham</input>
-<input class="Choice" type="checkbox">Lettuce</input>
-<input class="Choice" type="checkbox">Tomato</input>
-</div>
 <div class="FormFoot">
-<input type="submit" value="Submit" />
+<input type="submit" value="Submit" />      <a href='/index'>Go Home</a>
 </div>
 </div>
 </form>

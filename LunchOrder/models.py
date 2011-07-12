@@ -1,11 +1,13 @@
 from django.db import models
-
+from django.contrib.auth.models import User
 # Create your models here
 
-class User(models.Model):
+class UserProfile(models.Model):
     #User Info- need to get OpenId thing in here...
+    user = models.ForeignKey(User, unique=True)
     department = models.CharField(max_length = 20)
     room = models.CharField(max_length = 4) 
+    iskitchenstaff = models.BooleanField()
 
 CATEGORY_CHOICES =( 
 ('M', 'Main'),
@@ -23,6 +25,8 @@ class Ingredient(models.Model):
         return "{0} : {1}".format(self.category,self.name)
 class Meal(models.Model):
     ingredients = models.ManyToManyField("Ingredient")
+    def __unicode__(self):
+        return "Meal {0}".format(self.id)
 class Order(models.Model):
     STYLE_CHOICES =( 
 ('R', 'Roll'),
@@ -37,5 +41,8 @@ class Order(models.Model):
     meal = models.ForeignKey(Meal)
     style = models.CharField(max_length=1,choices=STYLE_CHOICES)
     submitted = models.DateTimeField()
-    pickup = models.CharField(max_length=10)
+    pickup = models.CharField(max_length=15)
     confirmed = models.BooleanField()
+    isfilled = models.BooleanField()
+    def __unicode__(self):
+        return "Order {0}: {1} by {2}".format(self.id, self.meal.ingredients.all(), self.user)

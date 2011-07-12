@@ -1,0 +1,18 @@
+<html5>
+<head>
+<title> Kitchen Index </title>
+</head>
+<body>
+Index for the Kitchen </br>
+{% if orderlist %}
+{% for order in orderlist %}
+<a href='/{{ order.id }}'>{{ order }}</a> </br>
+{% endfor %}
+{% else %}
+</br> There are no orders to be filled
+{% endif %}
+</br> </br>
+<a href='/index'>Go Back</a>
+</body>
+</html5>
+
