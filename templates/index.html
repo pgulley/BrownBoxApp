@@ -1,31 +1,43 @@
 <html5>
 <head>
 <title> Index </title>
+<LINK REL=StyleSheet  HREF='/static/style.css' TYPE='text/css'>
 </head>
 <body>
-This is a home page!
-</br>
+<h1> Brown Box Lunch </h1>
+<div class="Container">
 {% if user.is_authenticated %}  
+<div class='logininfo'>
+You are logged in as <strong> {{ user.username }} </strong>  <a class='logout'  href='/logout'>Logout</a>
+</div>
+<hr />
+<div class='indexcenter'>
+<a class='order' href='/order'>Order a Lunch</a></br>
 </br>
-{{ user.username }} </br>
-<a href='/order'>Order a Lunch! </a></br>
-<a href='/view'>View all orders</a></br>
-{% if user.get_profile.iskitchenstaff %}
-<a href='/kitchen'>Kitchen Index</a> </br>
-{% endif %}
-<a href='/logout'>Logout</a>
+<a class='view' href='/view'>View all orders</a></br>
+</div>
+<div class='indexfoot'>
+<hr />
+{% if user.get_profile.iskitchenstaff %}<a href='/kitchen'>Kitchen Index</a>{% else %} Footer info, all that blah and filler info {% endif %}
+</div>
 {% else %}
-You aren't logged in! </br>
-Please do so, or <a href='/newuser'> create an account</a>
+<div class='logininfo'> You aren't logged in!</div>
+<hr />
+<div class='indexcenter'>
+Login:
 <form name='login' action='/login' method='post'> 
 {% csrf_token %}
 <input type=text name='username' value="username"> </br>
 <input type=text name='password' value="password"> </br>
 <input type=submit value='Submit'></br>
 {% if loginerror %}
-</br>  That Login info is Incorrect
-{% endif %} 
+</br>  That Login info is Incorrect </br>
+{% endif %}
+or <a href='/newuser'> create an account</a>
+ 
+</div>
 {% endif %}
 </form> 
+</div>
 </body>
 </html5>

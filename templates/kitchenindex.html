@@ -1,17 +1,22 @@
 <html5>
 <head>
 <title> Kitchen Index </title>
+<link rel=StyleSheet href="static/style.css" type='text/css'>
 </head>
 <body>
-Index for the Kitchen </br>
+<h1> Brown Box Lunch </h1>
+<div class='Container'>
+<div class='logininfo'> You are logged in as <strong>{{ user.username }}</strong> <a class=logout href='/logout'>Logout</a></div>
+<h2>Index for the Kitchen</h2>
 {% if orderlist %}
 {% for order in orderlist %}
-<a href='/{{ order.id }}'>{{ order }}</a> </br>
+<a href='/{{ order.id }}'>Order{{ order.id }}</a> </br>
 {% endfor %}
 {% else %}
-</br> There are no orders to be filled
+There are no orders to be filled </br>
 {% endif %}
-</br> </br>
+<hr />
+</br>
 <a href='/index'>Go Back</a>
 </body>
 </html5>

@@ -1,26 +1,38 @@
 <html5>
 <head>
 <title> Order {{ order.id }} </title>
+<link rel=StyleSheet href='/static/style.css' type='text/css'>
 </head>
-<body> 
-Order Details </br>
+<body>
+<h1> Brown Box Lunch </h1> 
+<div class="Container">
+<h2>Order Details</h2> 
 {{ order.pickup }},{{ order.style }} </br>
-by {{ order.user.username }}, {{ order.user.get_profile.department }}, {{ order.user.get_profile.room }}  </br>
+by {{ order.user.username }}, {{ order.user.get_profile.department }}, Room {{ order.user.get_profile.room }}  </br>
 {% for cat in choices %}
-{{ cat.0 }}
+<div class="ordergroup">
+<div class='ordergroupname'>{{ cat.0 }}</div>
+{% if cat.1 %}
 {% for ingr in cat.1 %}
-{{ ingr }}
-{% endfor %}.
-{% endfor %}</br>
+<div class="orderchoice">
+{{ ingr.name }}
+</div>
+{% endfor %}
+{% else %}
+<div class="orderchoice"> None </div>
+{% endif %}
+</div>
+{% endfor %}
 <form name='fill' action='fill' method='post'> 
 {% csrf_token %}
 {% if user.get_profile.iskitchenstaff %}
-<input type=submit value= 'Submit' style:'display:inline' >
+<input type=submit value= 'Fill Order' style:'display:inline' >
 <a href='/kitchenindex'>Go Back</a>
 {% else %}
 <a href='/view'>Go Back</a>
 {% endif %}
 </form>
+</div>
 </body></html5>
 
 

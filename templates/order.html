@@ -4,15 +4,16 @@
 <LINK REL=StyleSheet HREF="/static/style.css" TYPE="text/css">
 </head>
 <body>
-<div> <h1> Brown Box Order Form </h1> </div>
+<div> <h1> Brown Box Lunch</h1> </div>
 <form name="NewOrder" action="/order/confirm/" method="post">
 {% csrf_token %}
 <div class="OrderForm">
 <div class= "FormHead">
+<div class='logininfo'> You're logged in as <strong>{{ user.username }}</strong>
+<hr />
 {% if returned %}
   <strong> You're here because you weren't ready to submit your order.</strong> </br>
-{% endif %}
-Name: {{ user.username }} Department:{{ user.get_profile.department }} Room Number: {{ user.get_profile.room }} </br>
+{% endif %}Department:{{ user.get_profile.department }} Room Number: {{ user.get_profile.room }} </br>
 Pickup Time:
 <select name="DOW">
 <option value='TUES'>Tuesday</option>
@@ -35,7 +36,6 @@ Pickup Time:
 <option value="PM">PM</option>
 </select>
 </br>
-
 Type of Meal <select name="style">  
 <option value='R'>Roll</option> 
 <option value='W'>Wrap</option> 

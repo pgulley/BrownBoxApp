@@ -9,6 +9,8 @@ class UserProfile(models.Model):
     room = models.CharField(max_length = 4) 
     iskitchenstaff = models.BooleanField()
 
+
+
 CATEGORY_CHOICES =( 
 ('M', 'Main'),
 ('V', 'Veggie'),
@@ -39,7 +41,7 @@ class Order(models.Model):
 )
     user = models.ForeignKey(User)
     meal = models.ForeignKey(Meal)
-    style = models.CharField(max_length=1,choices=STYLE_CHOICES)
+    style = models.CharField(choices=CATEGORY_CHOICES, max_length=1)
     submitted = models.DateTimeField()
     pickup = models.CharField(max_length=15)
     confirmed = models.BooleanField()

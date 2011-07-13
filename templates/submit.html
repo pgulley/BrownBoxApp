@@ -1,26 +1,33 @@
 <html5>
 <head> 
 <title> Submitting </title>
+<LINK REL=StyleSheet HREF='/static/style.css' type='text/css'>
 </head>
 <body>
-Name: {{ user.username }} </br>
-Department: {{ Order.user.get_profile.department }} Room Number: {{ Order.user.get_profile.room }} </br>
-Your Order </br>
+<h1>Brown Box Lunch</h1>
+<div class='Container'>
+<div class='logininfo'> Your are logged in as <strong> {{ user.username }} </strong> </div>
+<hr />
+<h2> Please review your order </h2> 
+<div class='orderdetail'>
+{{ Order.get_style_display }} </br>
 {% for cat in Choices  %}
-{{ cat.0 }} </br>
+<div class='ordergroup'>
+<div class='ordergroupname'> {{ cat.0 }}</div>
 {% if cat.1 %}
 {% for ingr in cat.1 %}
-{{ ingr.name }} 
+<div class='orderchoice'>
+{{ ingr.name }}, 
+</div>
 {% endfor %} </br>
 {% else %}
-None </br>
+<div class='orderchoice'>None</div>
 {% endif %}
+</div>
 {% endfor %} </br>
-Meal Style </br>
-{{ Order.style }} </br>
-Pick Up Time </br>
-{{ Order.pickup }} </br>
-Are you sure this is what you want to order </br>
+Pick up on {{ Order.pickup }} </br>
+</div>
+Are you sure this is what you want to order? </br>
 <form name="Confirm" action='/order/submit/' method=post style='display:inline'>
 {% csrf_token %}
 <input type=hidden name="OrderId" value={{ Order.id }}>
@@ -30,6 +37,7 @@ Are you sure this is what you want to order </br>
 <input type='hidden' name="OrderId" value={{ Order.id }}> 
 <input type=submit name="Qu" value='no'> </br>
 </form>
+</div>
 </body>
 </html5>
 

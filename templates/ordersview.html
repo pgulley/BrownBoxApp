@@ -1,22 +1,30 @@
 <html5>
 <head>
 <title> Viewing Orders </title>
+<link rel=StyleSheet href='/static/style.css' type='text/css'>
 </head>
 <body>
+<h1> Brown Box Lunch </h1>
+<div class="Container">
+<div class='logininfo'> logged in as <strong>{{ user.username }}</strong><a class='logout' href='/logout'>Logout</a></div>
+<hr />
 Unfilled Orders: </br>
 {% if Orders %}
 {% for Order in Orders %}
-<a href='/{{ Order.id }}'>{{ Order }}</a> </br>
+<a href='/{{ Order.id }}'>Order {{ Order.id }}</a> </br>
 {% endfor %}
 {% else %}
-There are no orders to be fufilled </br>
+There's nothing here </br>
 {% endif %}
+<hr />
 Past Orders: </br>
 {% if FilledOrders %}
 {% for Order in FilledOrders %}
-<a href='/{{ Order.id }}'>{{ Order }}</a> </br>
+<a href='/{{ Order.id }}'>Order {{ Order.id }}</a> </br>
 {% endfor %}
-{% endif %}
+{% endif %} 
+<hr />
 <a href='/index'>Go Home </a>
+</div>
 </body>
 </html5>
