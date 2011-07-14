@@ -2,22 +2,25 @@ h1{
 margin-left:60px;
 }
 div.OrderForm{
-width:700px;
+width:900px;
 padding:10px;
-border:7px solid black;
+border:3px solid black;
 margin-left:60px;
 }
 div.FormHead{
-width:680px;
+width:880px;
 padding:10px;
 border-bottom:3px solid black;
 margin:0px;
 }
 div.Info{
+border-top:1px solid gray;
+margin-top:2px;
+padding-top:1px;
 text-align:center;
 }
 div.Category{
-width:680px;
+width:880px;
 padding:1px;
 padding-bottom:3px;
 margin:1px;
@@ -38,7 +41,7 @@ list-style-position:inside;
 display:inline;
 }
 div.FormFoot{
-width:680px;
+width:880px;
 padding 10px;
 margin-top:5px;
 }
@@ -55,17 +58,50 @@ padding:3px;
 padding-bottom:0px;
 }
 a.logout{
+color:black;
 float:right;
+text-decoration:none;
+}
+a.logout:hover {
+color:gray;
 }
 a.order{
 font-size:30px;
 text-decoration:none;
 text-align:center;
 color:black;
+padding:2px;
 border:2px solid black;
 }
 a.order:hover {
 border-color:gray;
 }
-
+a.view{
+font-size:20px;
+text-decoration:none;
+text-align:center;
+color:black;
+padding:1px;
+border:2px solid black;
+}
+div.indexcenter{
+text-align:center;
+}
+div.indexfoot{
+padding:2px;
+}
+div.orderdetail{
+}
+div.ordergroup{
+background:grey;
+padding:1px;
+margin:1px;
+}
+div.orderchoice{ 
+display:inline;
+font-size:15px;
+}
+div.ordergroupname{
+font-size:20;
+}
 

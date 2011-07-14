@@ -18,7 +18,7 @@ update:
 .PHONY: run
 run: build 
 	bin/python manage.py syncdb
-	bin/python manage.py runserver 0.0.0.0:8000
+	bin/python manage.py runserver 0.0.0.0:80
 	
 
 
