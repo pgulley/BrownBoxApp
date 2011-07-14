@@ -79,15 +79,16 @@ def OrdersView(request):
     else:
         orderlist = []
         filledlist= []
+        unfilledlist = []
         for order in Order.objects.all():
-            if order.user == request.user:
-                if order.confirmed:
+            if order.user == request.user and  order.confirmed:
                     orderlist.append(order)
         for order in orderlist:
             if order.isfilled:
-                orderlist.remove(order)
                 filledlist.append(order)
-        return render_to_response('ordersview.html', {"Orders":orderlist,
+            else:
+                unfilledlist.append(order)
+        return render_to_response('ordersview.html', {"UnfilledOrders":unfilledlist,
                                                       "FilledOrders":filledlist}, context_instance=RequestContext(request))
 #Auth system views
 

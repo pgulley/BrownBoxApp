@@ -28,7 +28,7 @@ class Ingredient(models.Model):
 class Meal(models.Model):
     ingredients = models.ManyToManyField("Ingredient")
     def __unicode__(self):
-        return "Meal {0}".format(self.id)
+        return "{0}".format(self.ingredients.all()[0].name)
 class Order(models.Model):
     STYLE_CHOICES =( 
 ('R', 'Roll'),
@@ -41,10 +41,10 @@ class Order(models.Model):
 )
     user = models.ForeignKey(User)
     meal = models.ForeignKey(Meal)
-    style = models.CharField(choices=CATEGORY_CHOICES, max_length=1)
+    style = models.CharField(choices=STYLE_CHOICES, max_length=1)
     submitted = models.DateTimeField()
     pickup = models.CharField(max_length=15)
     confirmed = models.BooleanField()
     isfilled = models.BooleanField()
     def __unicode__(self):
-        return "Order {0}: {1} by {2}".format(self.id, self.meal.ingredients.all(), self.user)
+        return "Order {0}: {1} {2} ".format(self.id, self.meal, self.get_style_display())

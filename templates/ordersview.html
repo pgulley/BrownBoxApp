@@ -9,8 +9,8 @@
 <div class='logininfo'> logged in as <strong>{{ user.username }}</strong><a class='logout' href='/logout'>Logout</a></div>
 <hr />
 Unfilled Orders: </br>
-{% if Orders %}
-{% for Order in Orders %}
+{% if UnfilledOrders %}
+{% for Order in UnfilledOrders %}
 <a href='/{{ Order.id }}'>Order {{ Order.id }}</a> </br>
 {% endfor %}
 {% else %}
