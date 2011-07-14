@@ -28,7 +28,7 @@ Login:
 <form name='login' action='/login' method='post'> 
 {% csrf_token %}
 <input type=text name='username' value="username"> </br>
-<input type=text name='password' value="password"> </br>
+<input type=password name='password' value="password"> </br>
 <input type=submit value='Submit'></br>
 {% if loginerror %}
 </br>  That Login info is Incorrect </br>
