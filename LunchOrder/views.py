@@ -32,10 +32,18 @@ def Confirm(request):
     if not request.user.is_authenticated(): 
         return render_to_response('indexredirect.html', context_instance=RequestContext(request))
     else:
+        cdate = datetime.date.today()
         newmeal = Meal()
         newmeal.save()
         templist = []
         falselist = []
+        DOWOrd=0
+        DOW = request.POST['DOW']
+        if DOW == "Tues":
+            DOWOrd = 2
+        else:
+            DOWOrd = 4
+        CDOW = datetime.date(cdate.year,cdate.month,cdate.day).weekday()
         for ingr in Ingredient.objects.all():
             try:
                 added = request.POST[str(ingr.id)]
@@ -46,7 +54,7 @@ def Confirm(request):
                 newmeal.ingredients.add(ingr)
                 templist.append(ingr)
         mealstyle = request.POST["style"]
-        pickuptime = request.POST["DOW"]+" - "+request.POST["hour"]+":"+request.POST["minute" ]+" "+request.POST["AMPM"]
+        pickuptime = DOW+" - "+request.POST["hour"]+":"+request.POST["minute" ]+" "+request.POST["AMPM"]
         use = request.user
         neworder = Order(style=mealstyle,meal=newmeal,submitted=datetime.datetime.now(),pickup=pickuptime,user=use, confirmed=False, isfilled = False)
         neworder.save() 

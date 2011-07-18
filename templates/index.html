@@ -27,7 +27,7 @@ You are logged in as <strong> {{ user.username }} </strong>  <a class='logout'  
 Login:
 <form name='login' action='/login' method='post'> 
 {% csrf_token %}
-<input type=text name='username' value="username"> </br>
+Username: <input type=text name='username' value="username"> </br> Password:
 <input type=password name='password' value="password"> </br>
 <input type=submit value='Submit'></br>
 {% if loginerror %}
