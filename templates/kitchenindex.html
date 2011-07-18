@@ -10,7 +10,7 @@
 <h2>Index for the Kitchen</h2>
 {% if orderlist %}
 {% for order in orderlist %}
-<a href='/{{ order.id }}'>Order{{ order.id }}</a> </br>
+<a href='/{{ order.id }}'>{{ order }}</a> </br>
 {% endfor %}
 {% else %}
 There are no orders to be filled </br>

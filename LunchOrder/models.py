@@ -28,7 +28,10 @@ class Ingredient(models.Model):
 class Meal(models.Model):
     ingredients = models.ManyToManyField("Ingredient")
     def __unicode__(self):
-        return "{0}".format(self.ingredients.all()[0].name)
+        try:
+            return "{0}".format(self.ingredients.all()[0].name)
+        except IndexError:
+            return "empty"
 class Order(models.Model):
     STYLE_CHOICES =( 
 ('R', 'Roll'),

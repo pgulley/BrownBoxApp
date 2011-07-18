@@ -55,6 +55,8 @@ def Confirm(request):
                 if added:
                     newmeal.ingredients.add(ingr)
                     templist.append(ingr)
+            if not templist:
+                return OrderPage(request,error="You can't order an empty meal")
             mealstyle = request.POST["style"]
             pickuptime = DOW+" - "+request.POST["hour"]+":"+request.POST["minute" ]+" "+request.POST["AMPM"]
             use = request.user

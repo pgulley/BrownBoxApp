@@ -11,7 +11,7 @@
 Unfilled Orders: </br>
 {% if UnfilledOrders %}
 {% for Order in UnfilledOrders %}
-<a href='/{{ Order.id }}'>Order {{ Order.id }}</a> </br>
+<a href='/{{ Order.id }}'>{{ Order }}</a> </br>
 {% endfor %}
 {% else %}
 There's nothing here </br>
@@ -20,7 +20,7 @@ There's nothing here </br>
 Past Orders: </br>
 {% if FilledOrders %}
 {% for Order in FilledOrders %}
-<a href='/{{ Order.id }}'>Order {{ Order.id }}</a> </br>
+<a href='/{{ Order.id }}'>{{ Order }}</a> </br>
 {% endfor %}
 {% endif %} 
 <hr />
