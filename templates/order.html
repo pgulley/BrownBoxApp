@@ -11,9 +11,10 @@
 <div class= "FormHead">
 <div class='logininfo'> You're logged in as <strong>{{ user.username }}</strong>
 <hr />
-{% if returned %}
-  <strong> You're here because you weren't ready to submit your order.</strong> </br>
+{% if error %}
+  <strong> {{ error }}</strong> </br>
 {% endif %}Department:{{ user.get_profile.department }} Room Number: {{ user.get_profile.room }} </br>
+Orders must be submitted by ten am the morning before the intended pickup time </br>
 Pickup Time:
 <select name="DOW">
 <option value='TUES'>Tuesday</option>
@@ -60,6 +61,7 @@ Wraps and Sandwiches come with chips and a cookie, salads come with a cookie onl
 {% endif %}
 <hr />
 <div class="FormFoot">
+<input type=hidden name=errors value=''> 
 <input type="submit" value="Submit" />      <a href='/index'>Go Home</a>
 </div>
 </div>

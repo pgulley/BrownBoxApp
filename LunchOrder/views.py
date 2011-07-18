@@ -6,17 +6,13 @@ from django.template import Context, loader, RequestContext
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 import datetime
-
+import copy
 #Basic order-page views
 
-def OrderPage(request):
+def OrderPage(request,error=False):
     if not request.user.is_authenticated(): 
         return render_to_response('indexredirect.html', context_instance=RequestContext(request))
     else:
-        if request.POST:
-            returned = True
-        else: 
-            returned = False
         ingredientlist = Ingredient.objects.all()
         categories = []
         for categoryref in CATEGORY_CHOICES:
@@ -25,49 +21,57 @@ def OrderPage(request):
                 if ingredient.category == categoryref[0]:
                     temporarycategorylist[1].append(ingredient)
             categories.append(temporarycategorylist)
-        profile = request.user.get_profile()
+        try:
+            error=request.POST['error']
+        except KeyError:
+            pass
         return render_to_response("order.html", {"categories": categories,
-                                                 "returned":returned},context_instance=RequestContext(request))
+                                                 "error":error},context_instance=RequestContext(request))
 def Confirm(request):
     if not request.user.is_authenticated(): 
         return render_to_response('indexredirect.html', context_instance=RequestContext(request))
     else:
-        cdate = datetime.date.today()
+        cdate = datetime.datetime.now()
         newmeal = Meal()
         newmeal.save()
         templist = []
         falselist = []
         DOWOrd=0
         DOW = request.POST['DOW']
-        if DOW == "Tues":
-            DOWOrd = 2
+        if DOW == "TUES":#Ords are one less than acutal because the cut off is the day BEFORE the ord.
+            DOWOrd = 0
         else:
-            DOWOrd = 4
-        CDOW = datetime.date(cdate.year,cdate.month,cdate.day).weekday()
-        for ingr in Ingredient.objects.all():
-            try:
-                added = request.POST[str(ingr.id)]
-            except KeyError:
-                added = False
-                falselist.append(ingr)
-            if added:
-                newmeal.ingredients.add(ingr)
-                templist.append(ingr)
-        mealstyle = request.POST["style"]
-        pickuptime = DOW+" - "+request.POST["hour"]+":"+request.POST["minute" ]+" "+request.POST["AMPM"]
-        use = request.user
-        neworder = Order(style=mealstyle,meal=newmeal,submitted=datetime.datetime.now(),pickup=pickuptime,user=use, confirmed=False, isfilled = False)
-        neworder.save() 
-        choices = []
-        for categoryref in CATEGORY_CHOICES:
-            temporarycategorylist = (categoryref[1],[]) 
-            for ingredient in neworder.meal.ingredients.all():
-                if ingredient.category == categoryref[0]:
-                    temporarycategorylist[1].append(ingredient)
-            if temporarycategorylist:
-                choices.append(temporarycategorylist)
-        return render_to_response("submit.html",{"Order":neworder,
+            DOWOrd = 2
+        targetdate = datetime.datetime(year=cdate.year,month=cdate.month,day=cdate.day,hour=9,minute=0,second=0)
+        while targetdate.weekday() != DOWOrd: #find the next upcoming day with the same weekday. 
+            targetdate = targetdate + datetime.timedelta(days=1) 
+        if targetdate > cdate: #if the target date hasn't passed yet...
+       	    for ingr in Ingredient.objects.all():
+                try:
+                    added = request.POST[str(ingr.id)]
+                except KeyError:
+                    added = False
+                    falselist.append(ingr)
+                if added:
+                    newmeal.ingredients.add(ingr)
+                    templist.append(ingr)
+            mealstyle = request.POST["style"]
+            pickuptime = DOW+" - "+request.POST["hour"]+":"+request.POST["minute" ]+" "+request.POST["AMPM"]
+            use = request.user
+            neworder = Order(style=mealstyle,meal=newmeal,submitted=datetime.datetime.now(),pickup=pickuptime,user=use, confirmed=False, isfilled = False)
+            neworder.save() 
+            choices = []
+            for categoryref in CATEGORY_CHOICES:
+                temporarycategorylist = (categoryref[1],[]) 
+                for ingredient in neworder.meal.ingredients.all():
+                    if ingredient.category == categoryref[0]:
+                        temporarycategorylist[1].append(ingredient)
+                if temporarycategorylist:
+                    choices.append(temporarycategorylist)
+            return render_to_response("submit.html",{"Order":neworder,
                                                  "Choices":choices}, context_instance=RequestContext(request))
+        else: 
+            return OrderPage(request,error="Time Error- this pickup time is invalid") 
 def SubmitOrder(request):
     if not request.user.is_authenticated(): 
         return render_to_response('indexredirect.html', context_instance=RequestContext(request))

@@ -35,6 +35,7 @@ Are you sure this is what you want to order? </br>
 <form name="Confirm" action='/order' method=post style="display:inline">
 {% csrf_token %} 
 <input type='hidden' name="OrderId" value={{ Order.id }}> 
+<input type='hidden' name="error" value="You weren't ready to submit your order">
 <input type=submit name="Qu" value='no'> </br>
 </form>
 </div>
