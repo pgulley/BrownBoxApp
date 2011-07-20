@@ -5,38 +5,40 @@
 </head>
 <body>
 <h1> Brown Box Lunch </h1>
-<div class="Container">
+<div class="Container index">
 {% if user.is_authenticated %}  
 <div class='logininfo'>
 You are logged in as <strong> {{ user.username }} </strong>  <a class='logout'  href='/logout'>Logout</a>
 </div>
 <hr />
-<div class='indexcenter'>
+<div class="Blurb">
+Welcome! the SWAT Brown Box lunch program has been filling orderes for staff of the Carrer Center, Patrick Henry Elementary, Fenwick Clinic, and the Department of Human Services since September 2009. All staff involved are certified in sanitary food handling protocols. we supervise students to ensure that they, too, follow the strictest protocols for santiations and safe food handling. The SWAT Brown Box lunch program has won a state award. we are committed to providing high quality lunches at resonable prices. we use sustainable packaging and products wherever possible. Please, enjoy your meal </div>
+<div class='indexcenter cent'>
 <a class='order' href='/order'>Order a Lunch</a></br>
 </br>
 <a class='view' href='/view'>View all orders</a></br>
 </div>
-<div class='indexfoot'>
-<hr />
-{% if user.get_profile.iskitchenstaff %}<a href='/kitchen'>Kitchen Index</a>{% else %} Footer info, all that blah and filler info {% endif %}
-</div>
 {% else %}
-<div class='logininfo'> You aren't logged in!</div>
+<div class='logininfo'> You aren't logged in! {% if loginerror %}<a class='logout'>  That Login info is Incorrect </a>
+{% endif %}
+</div>
 <hr />
+<div class='Blurb'>
+Welcome! the SWAT Brown Box lunch program has been filling orderes for staff of the carrer center, patrick henry elementary, fenwick clinic, and the department of human services since September 2009. All staff involved are certified in sanitary food handling protocols. we supervise students to ensure that they, too, follow the strictest protocols for santiations and safe food handling. The SWAT Brown Box lunch program has won a state award. we are committed to providing high quality lunches at resonable prices. we use sustainable packaging and products wherever possible. Please, enjoy your meal </div>
 <div class='indexcenter'>
-Login:
 <form name='login' action='/login' method='post'> 
 {% csrf_token %}
 Username: <input type=text name='username' value="username"> </br> Password:
 <input type=password name='password' value="password"> </br>
 <input type=submit value='Submit'></br>
-{% if loginerror %}
-</br>  That Login info is Incorrect </br>
-{% endif %}
-or <a href='/newuser'> create an account</a>
- 
+or <a href='/newuser'> create an account</a> 
 </div>
 {% endif %}
+<div class='indexfoot'>
+<hr />
+ Note: Orders must be recieved by 10 AM the morning before pick up. They can also be canceled from the detail page before 11 on the day of pick up {% if user.get_profile.iskitchenstaff %}
+<a class='kitchenindex'  href='/kitchen'>Kitchen Index</a>{% endif %}
+</div>
 </form> 
 </div>
 </body>

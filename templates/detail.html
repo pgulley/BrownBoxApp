@@ -2,6 +2,7 @@
 <head>
 <title> Order {{ order.id }} </title>
 <link rel=StyleSheet href='/static/style.css' type='text/css'>
+<script type=text/javascript src="/static/scripts.js"></script>
 </head>
 <body>
 <h1> Brown Box Lunch </h1> 
@@ -23,16 +24,23 @@ by {{ order.user.username }}, {{ order.user.get_profile.department }}, Room {{ o
 {% endif %}
 </div>
 {% endfor %}
+{% if user.get_profile.iskitchenstaff %}
 <form name='fill' action='fill' method='post'> 
 {% csrf_token %}
-{% if user.get_profile.iskitchenstaff %}
 <input type=submit value= 'Fill Order' style:'display:inline' >
-<a href='/kitchenindex'>Go Back</a>
-{% else %}
-<a href='/view'>Go Back</a>
+<a href='/kitchenindex'>Go Back to Index</a></br>
+</form>
 {% endif %}
+{% if error %} <strong> {{ error }} </strong> {% endif %}
+<form name=cancel id='cancel'  action='cancel' method='post'>
+{% csrf_token %}
+<div id="ConfirmField"></div>
+<input type=button onclick=clicks=ConfirmCancel(clicks); value="Cancel Order" style:'display:inline'>
+<a href='/view'>Go Back</a>
+
 </form>
 </div>
-</body></html5>
+</body>
+</html5>
 
 

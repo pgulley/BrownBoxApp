@@ -58,9 +58,10 @@ def Confirm(request):
             if not templist:
                 return OrderPage(request,error="You can't order an empty meal")
             mealstyle = request.POST["style"]
-            pickuptime = DOW+" - "+request.POST["hour"]+":"+request.POST["minute" ]+" "+request.POST["AMPM"]
+            packstyle = request.POST['pack']
+            pickuptime = datetime.datetime(year=targetdate.year,month=targetdate.month,day=targetdate.day,hour=int(request.POST["hour"]),minute=int(request.POST['minute']))
             use = request.user
-            neworder = Order(style=mealstyle,meal=newmeal,submitted=datetime.datetime.now(),pickup=pickuptime,user=use, confirmed=False, isfilled = False)
+            neworder = Order(style=mealstyle,meal=newmeal,submitted=datetime.datetime.now(),pickup=pickuptime,user=use, confirmed=False, isfilled = False, package=packstyle)
             neworder.save() 
             choices = []
             for categoryref in CATEGORY_CHOICES:
@@ -87,7 +88,7 @@ def SubmitOrder(request):
 def Index(request):
     return render_to_response('index.html', context_instance=RequestContext(request))
 
-def OrdersView(request):
+def OrdersView(request,error=False):
     if not request.user.is_authenticated(): 
         return render_to_response('indexredirect.html', context_instance=RequestContext(request))
     else:
@@ -102,7 +103,8 @@ def OrdersView(request):
                 filledlist.append(order)
             else:
                 unfilledlist.append(order)
-        return render_to_response('ordersview.html', {"UnfilledOrders":unfilledlist,
+        return render_to_response('ordersview.html', {"Error":error,
+                                                      "UnfilledOrders":unfilledlist,
                                                       "FilledOrders":filledlist}, context_instance=RequestContext(request))
 #Auth system views
 
@@ -166,3 +168,16 @@ def FillOrder(request,order_id):
         return Kitchen(request) 
     else: 
         return render_to_response('index.html', context_instance=RequestContext(request)) #remember to make the error message
+
+def CancelOrder(request,order_id):
+    order = Order.objects.get(pk=order_id)
+    if request.user == order.user:
+        canceltime = datetime.datetime(year=order.pickup.year,month=order.pickup.month,day=order.pickup.day,hour=11, minute=0)
+        if datetime.datetime.now()>canceltime:
+            return OrderDetail(request,order_id,error="It's too late to cancel this order!")
+        else: 
+            order.confirmed = False
+            order.save()
+            return OrdersView(request)    
+    else:
+        return render_to_response('index.html', context_instance=RequestContext(request))

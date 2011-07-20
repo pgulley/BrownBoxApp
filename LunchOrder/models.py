@@ -38,16 +38,18 @@ class Order(models.Model):
 ('W', 'Wrap'),
 ('S', 'Salad'),
 )
-    DAY_CHOICES =( 
-('Tue', 'Tuesday'),
-('Thurs', 'Thursday'),
+    PACKAGE_CHOICES =( 
+('BO', 'Box'),
+('BA', 'Bag'),
 )
     user = models.ForeignKey(User)
     meal = models.ForeignKey(Meal)
     style = models.CharField(choices=STYLE_CHOICES, max_length=1)
     submitted = models.DateTimeField()
-    pickup = models.CharField(max_length=15)
+    pickup = models.DateTimeField()
     confirmed = models.BooleanField()
     isfilled = models.BooleanField()
+    ispayed = models.BooleanField()
+    package = models.CharField(choices=PACKAGE_CHOICES,max_length=2)
     def __unicode__(self):
-        return "Order {0}: {1} {2} ".format(self.id, self.meal, self.get_style_display())
+        return "Order: {0} {1} ".format(self.meal, self.get_style_display())

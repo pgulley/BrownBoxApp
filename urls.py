@@ -19,6 +19,7 @@ urlpatterns = patterns('',
      url(r'^kitchen','LunchOrder.views.Kitchen'),
      url(r'^(?P<order_id>\d+)/$','LunchOrder.views.OrderDetail'),
      url(r'^(?P<order_id>\d+)/fill','LunchOrder.views.FillOrder'),
+     url(r'^(?P<order_id>\d+)/cancel','LunchOrder.views.CancelOrder'),
     # url(r'^BrownBoxApp/', include('BrownBoxApp.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:

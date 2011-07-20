@@ -51,6 +51,9 @@ padding:5px;
 border:3px solid black;
 margin-left:60px;
 }
+div.Container.index{
+height:300px
+}
 div.logininfo{
 position:relative;
 margin:0px;
@@ -85,11 +88,28 @@ padding:1px;
 border:2px solid black;
 }
 div.indexcenter{
+padding:2px;
+margin:2px;
+margin-top:10px;
+width:250px;
+float:right;
+position:relative;
+display:inline;
+}
+div.centered{
+padding:2px;
+margin:2px;
 text-align:center;
+}
+div.indexcenter.cent{
+text-align:center;
+margin-top: 50px;
 }
 div.indexfoot{
 padding:2px;
+clear:both;
 }
+
 div.orderdetail{
 }
 div.ordergroup{
@@ -104,4 +124,11 @@ font-size:15px;
 div.ordergroupname{
 font-size:20;
 }
-
+div.Blurb{
+float:left;
+width:638px;
+padding:2px;
+padding-right:1px;
+margin:2px
+border-right:solid gray 1px;
+}
